@@ -25,7 +25,7 @@ export default function Question() {
 	}
 
 	return (
-		<div className="w-full">
+		<div className="w-full h-full">
 			{questionList.map((item, index) => {
 				return (
 					index === questionNo && (
