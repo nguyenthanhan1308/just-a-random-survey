@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { CardData } from "@/types/types";
 import { TextField, Button, Tooltip } from "@mui/material";
 import { NavigateBefore, NavigateNext, Info } from "@mui/icons-material";
@@ -25,13 +25,9 @@ export default function Card({
 	onSubmit,
 }: ChildProps) {
 	const [answer, setAnswer] = useState({});
-	const inputDebounce = useRef<NodeJS.Timeout | undefined>(undefined);
 
 	const handleChange = (e: { target: { value: string } }, question: string) => {
-		clearTimeout(inputDebounce.current);
-		inputDebounce.current = setTimeout(() => {
-			setAnswer({ ...answer, [question]: e?.target?.value });
-		}, 500);
+		setAnswer({ ...answer, [question]: e?.target?.value });
 	};
 
 	function renderButton() {
