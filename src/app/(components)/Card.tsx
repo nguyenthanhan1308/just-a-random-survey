@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { CardData } from "@/types/types";
 import { TextField, Button, Tooltip } from "@mui/material";
 import { NavigateBefore, NavigateNext, Info } from "@mui/icons-material";
@@ -12,7 +12,7 @@ interface ChildProps {
 	listLength: number;
 	answerList: Record<string, string>;
 	nextQuestion: (answer: object) => void;
-	prevQuestion: () => void;
+	prevQuestion: (answer: object) => void;
 	onSubmit: () => void;
 }
 export default function Card({
@@ -25,9 +25,13 @@ export default function Card({
 	onSubmit,
 }: ChildProps) {
 	const [answer, setAnswer] = useState({});
+	const inputDebounce = useRef<NodeJS.Timeout | undefined>(undefined);
 
 	const handleChange = (e: { target: { value: string } }, question: string) => {
-		setAnswer({ ...answer, [question]: e?.target?.value });
+		clearTimeout(inputDebounce.current);
+		inputDebounce.current = setTimeout(() => {
+			setAnswer({ ...answer, [question]: e?.target?.value });
+		}, 500);
 	};
 
 	function renderButton() {
@@ -39,7 +43,7 @@ export default function Card({
 							variant="contained"
 							color="success"
 							startIcon={<NavigateBefore />}
-							onClick={prevQuestion}
+							onClick={() => prevQuestion(answer)}
 						>
 							Back
 						</Button>
@@ -70,14 +74,16 @@ export default function Card({
 
 	return (
 		<div
-			className={`bg-white rounded-sm flex-row justify-center p-2 mb-2 cardBoxShadow w-full ${styles.cardBoxShadow}`}
+			className={`bg-white rounded-sm flex-row justify-center p-4 mb-2 cardBoxShadow w-full ${styles.cardBoxShadow}`}
 		>
 			{data?.questionArray.map(questObj => {
-				const {quest, tooltip, answer, questionID, type} = questObj;
+				const { quest, tooltip, answer, questionID, type } = questObj;
 				return (
 					<div key={quest}>
 						<div className="mb-2 flex flex-row items-center">
-							<div className={`text-left py-2 pl-2 pr-1 ${type === "general" ? "text-2xl" : ""}`}>{quest}</div>
+							<div className={`text-left pr-1 ${type === "general" ? "text-2xl font-bold" : ""}`}>
+								{quest}
+							</div>
 							{questObj.tooltip && (
 								<Tooltip
 									title={tooltip}

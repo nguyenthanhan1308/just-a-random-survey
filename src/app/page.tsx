@@ -12,10 +12,10 @@ export default function SurveyForm() {
 						<div
 							className={`text-center text-2xl p-3 w-full h-fit flex justify-center ${styles.title} lg:text-3xl `}
 						>
-							{`Hi, hope this doesn't feel like an interrogation`}
+							{`Hi, please remember all of this is optional. If you feel uncomfortable to answer, then don't`}
 						</div>
 					</div>
-					<div className="h-[50cqh] text-center w-full flex flex-row justify-center items-center">
+					<div className="h-[55cqh] text-center w-full flex flex-row justify-center items-center">
 						<Question />
 					</div>
 					<div

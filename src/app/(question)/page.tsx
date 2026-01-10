@@ -10,19 +10,24 @@ export default function Question() {
 	const [answerList, setAnswerList] = useState<Record<string, string>>({});
 
 	// functions
-	function nextQuestion(cardAnswer: object): void {
-		setQuestionNo(prevNumber => prevNumber + 1);
-		const newAnswerList = { ...answerList, ...cardAnswer };
+	function answerHandler (answerParam: object): void {
+		const newAnswerList = { ...answerList, ...answerParam };
 		setAnswerList(newAnswerList);
-	}
+	};
 
-	function prevQuestion(): void {
+	function nextQuestion(cardAnswer: object): void {
+		answerHandler(cardAnswer);
+		setQuestionNo(prevNumber => prevNumber + 1);
+	};
+
+	function prevQuestion(cardAnswer: object): void {
+		answerHandler(cardAnswer);
 		setQuestionNo(prevNumber => prevNumber - 1);
-	}
+	};
 
 	function onSubmit(): void {
 		setQuestionNo(prevNumber => prevNumber + 1);
-	}
+	};
 
 	return (
 		<div className="w-full h-full">
