@@ -5,13 +5,11 @@ export const questionList: CardData[] = [
 			{
 				questionID: "question1",
 				quest: "Name",
-				answer: "Nguyễn Hoàng Mai Thy",
 				type: "text",
 			},
 			{
 				questionID: "question2",
 				quest: "Date of birth",
-				answer: "January 19",
 				tooltip: "How do I know? Well, you didn't hide it tho xD.",
 				type: "text",
 			},
